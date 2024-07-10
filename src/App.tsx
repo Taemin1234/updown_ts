@@ -1,17 +1,20 @@
 import { useState, useEffect, useRef, ChangeEvent } from "react";
-
-import "./App.css";
+import styled from 'styled-components'
 
 import ChooseNum from "./components/ChooseNum";
 import TryShow from "./components/TryShow";
 import ResultShow from "./components/ResultShow";
+
+const Wrap = styled.div`
+  background-color: yellow;
+`
 
 function App() {
   const [inputVal, setInputVal] = useState<number | undefined>(undefined);
   const [inputHistory, setInputHistory] = useState<Array<[number, string]>>([]);
   const [rand, setRand] = useState<number>(0);
   const [tryCount, setTryCount] = useState<number>(0);
-  const [resultRecord, setResultRecord] = useState<Array<[string, number]>>([]);
+  const [resultRecord, setResultRecord] = useState<Array<[any, number]>>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -47,7 +50,7 @@ function App() {
       } else {
         alert("정답입니다!");
         let result = prompt("닉네임을 입력해주세요");
-        //prompt가 null 될 수 있으니 null이 아닐 경우에만 추가하도록 설정
+        // prompt가 null이 아니고 빈 문자열이 아닐 때만 resultRecord에 추가하도록 변경
         if (result !== null && result.trim() !== "") {
           setResultRecord((prevRecord) => [...prevRecord, [result, tryCount]]);
         }
@@ -71,7 +74,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <Wrap>
       <ChooseNum
         inputValue={inputValue}
         findNumber={findNumber}
@@ -79,7 +82,7 @@ function App() {
       />
       <TryShow tryCount={tryCount} inputHistory={inputHistory} />
       <ResultShow resultRecord={resultRecord} />
-    </div>
+    </Wrap>
   );
 }
 
