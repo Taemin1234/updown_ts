@@ -6,7 +6,12 @@ import TryShow from "./components/TryShow";
 import ResultShow from "./components/ResultShow";
 
 const Wrap = styled.div`
-  background-color: yellow;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  padding-top: 60px;
 `
 
 function App() {
